@@ -1,0 +1,39 @@
+.products-grid{
+    display: flex;
+   justify-content: space-between; 
+   gap: 50px;  
+   align-items: center;    
+   flex-wrap: wrap;
+  
+   margin: 75px 35px 25px 35px;
+
+}
+
+.product-container{
+    display: flex;
+    max-width: 200px;
+}
+.product{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+}
+.product img{
+    width: 100%;
+}
+.product button{
+    background-color: rgb(87, 193, 87);
+    color: white;
+    font-size: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+}
+.product h3{
+    color: orange;
+    font-family: arial;
+
+}
+.product p{
+    color: #615b5b;
+}
