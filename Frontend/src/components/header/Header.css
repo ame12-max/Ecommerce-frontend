@@ -34,9 +34,11 @@
    border: 1px solid gray;
    padding: 6px 2px;
    cursor: pointer;
+   position: relative;
 }
 .left-header{
     max-width: 300px;
+
     
 }
 .left-header img{
@@ -47,4 +49,15 @@
 .search-icon{
     max-width: 400px;
     flex: 1;
+}
+.order-count{
+    position: absolute;
+    right: 0;
+    margin-right: 30px;
+    background-color: rgb(163, 59, 59);
+    z-index: 100;
+    color: white;
+    top: 0;
+    padding: 6px 2px;
+
 }
