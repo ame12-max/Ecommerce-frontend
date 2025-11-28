@@ -1,17 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./Home.css";
 
-function Home() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await axios.get("http://localhost:7001/api/products");
-
-      setProducts(response.data);
-    };
-    fetchProducts();
-  }, []);
+function Home({products,addToCart}) {
+ 
   return (
     <div className="products-grid">
       {products.map((product) => {
@@ -21,7 +11,7 @@ function Home() {
               <img src={product.image} alt="product image" srcset="" />
               <h3>{product.name}</h3>
               <p>{product.description}</p>
-              <button>Add To cart</button>
+              <button onClick={addToCart}>Add To cart</button>
             </div>
           </div>
         );

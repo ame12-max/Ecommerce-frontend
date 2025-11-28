@@ -1,10 +1,17 @@
 import React from "react";
 import './Cart.css'
 
-function Cart() {
+function Cart({products}) {
   return (
     <div className="cart-conatainer">
-      <h1>cart page</h1>
+      {products.map( (product) =>{
+       return <div className="cart-product">
+        <img src={product.image}/>  
+        <h3>{product.name}</h3>  
+        <p>{product.description}</p>  
+      </div>
+      })}
+      
     </div>
   );
 }

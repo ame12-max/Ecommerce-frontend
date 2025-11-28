@@ -1,0 +1,7 @@
+.login-container{
+    margin-top: 100px;
+}
+.login-container form{
+    display: flex;
+    flex-direction: column;
+}

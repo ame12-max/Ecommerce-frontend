@@ -1,0 +1,78 @@
+INSERT INTO users (name, email, password, role)
+VALUES ('Alice Doe', 'alice@example.com', '$2a$10$hashHere', 'user');
+👉 password should be a bcrypt hash in real usage, but you can put plain text for testing.
+
+🏷️ Categories
+sql
+Copy code
+INSERT INTO categories (name, description)
+VALUES ('Electronics', 'Devices and gadgets like phones, laptops, and accessories');
+📦 Products
+sql
+Copy code
+INSERT INTO products (name, description, price, stock, category_id)
+VALUES ('Smartphone X1', 'Latest smartphone with amazing features', 599.99, 50, 1);
+👉 Assumes the category with id=1 exists.
+
+🛒 Orders
+sql
+Copy code
+INSERT INTO orders (user_id, total_price, status)
+VALUES (1, 1199.98, 'pending');
+👉 Assumes the user with id=1 exists.
+
+📦 Order Items
+sql
+Copy code
+INSERT INTO order_items (order_id, product_id, quantity, price)
+VALUES (1, 1, 2, 599.99);
+👉 Means: Order #1 contains 2 × Smartphone X1, each priced at 599.99.
+
+
+Perfect ✅ — a single SELECT with joins will give you the full order summary, ready to plug into your GET API later. Here’s a clean query:
+
+SELECT 
+    o.id AS order_id,
+    o.created_at AS order_date,
+    o.status,
+    u.name AS customer_name,
+    u.email AS customer_email,
+    p.name AS product_name,
+    p.description AS product_description,
+    oi.quantity,
+    oi.price,
+    c.name AS category_name
+FROM orders o
+JOIN users u ON o.user_id = u.id
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id
+JOIN categories c ON p.category_id = c.id
+WHERE o.id = 1;
+
+🔎 What this gives you
+
+For order_id = 1 (Alice’s order), you’ll see:
+
+Order info → ID, date, status
+
+User info → name + email
+
+Product info → name + description
+
+Category → like Electronics
+
+Order item info → quantity + price
+
+🧾 Example result
+order_id	order_date	status	customer_name	customer_email	product_name	quantity	price	category_name
+1	2025-09-20 10:15:00	pending	Alice Doe	alice@example.com
+	Smartphone X1	2	599.99	Electronics
+
+⚖️ Devil’s advocate:
+This query is great for “order details”, but if you’ll use it in production:
+
+Add pagination if fetching many orders.
+
+Pre-calculate totals (SUM(oi.quantity * oi.price)).
+
+Index user_id and order_id for speed.

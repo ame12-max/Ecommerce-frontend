@@ -3,7 +3,7 @@ import { ShoppingCart, Package, Search } from "lucide-react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({cart}) {
   return (
     <div className="header">
       <div className="left-header">
@@ -11,6 +11,15 @@ function Header() {
           {" "}
           <img src="/download.jfif" alt="" />
         </Link>
+        <div className="hover-container">
+          <Link className="category">Categories</Link>
+          <div className="hovered-category">
+            <li>Technology</li>
+            <li>Food</li>
+            <li>asseseries</li>
+          </div>
+        </div>
+        <Link className="saved">Saved</Link>
       </div>
       <div className="right-header">
         <div className="search">
@@ -23,7 +32,7 @@ function Header() {
         <Link to="/cart">
           <ShoppingCart className="cart-icon" size={26} />
         </Link>
-        <p className="order-count">3</p>
+        <p className="order-count">{cart}</p>
       </div>
     </div>
   );
